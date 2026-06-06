@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/chat")
+@RequestMapping("/api")
 public class ChatbotController {
 
     private final ChatbotService chatbotService;
 
-    @PostMapping
+    @PostMapping("/chat")
     public ChatbotResponse chat(@RequestBody ChatbotRequest request) {
         return chatbotService.chat(request.message());
     }
