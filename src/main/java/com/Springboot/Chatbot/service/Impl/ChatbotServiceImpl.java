@@ -11,7 +11,8 @@ public class ChatbotServiceImpl implements ChatbotService {
     private final ChatClient chatClient;
 
     // Constructor injection
-    public ChatbotServiceImpl(ChatClient.Builder builder) {
+    public ChatbotServiceImpl(ChatClient.Builder builder) {//here we can do ChatClient chatClient only in case
+        // of when there is a bean of the ChatClient present.
         this.chatClient = builder.build();
     }
 
