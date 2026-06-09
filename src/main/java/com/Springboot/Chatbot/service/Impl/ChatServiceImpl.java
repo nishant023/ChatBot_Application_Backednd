@@ -41,7 +41,7 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public ChatResponse     sendMessage(String sessionId, String userId, String message) {
+    public ChatResponse sendMessage(String sessionId, String userId, String message) {
         ChatSession session = chatSessionRepository.findById(sessionId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Session not found"));
 
