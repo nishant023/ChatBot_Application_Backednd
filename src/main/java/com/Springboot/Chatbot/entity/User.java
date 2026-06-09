@@ -34,6 +34,6 @@ public class User implements UserDetails {
     //email is our username here
     @Override
     public String getUsername() {
-        return "";
+        return this.email;
     }
 }

@@ -5,9 +5,7 @@ spring:
     include: local
   data:
     mongodb:
-      host: localhost
-      port: 27017
-      database: chatbot_db
+      uri: mongodb://localhost:27017/chatbot_db
   ai:
     google:
       genai:
