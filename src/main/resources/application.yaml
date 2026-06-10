@@ -19,6 +19,8 @@ server:
 logging:
   level:
     org.springframework.ai: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
 app:
   jwt:
     secret: ${JWT_SECRET}

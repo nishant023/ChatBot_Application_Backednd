@@ -13,4 +13,5 @@ public class ChatMessage {
     private String role;
     protected String content;
     private Instant timestamp;
+
 }

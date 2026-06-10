@@ -23,6 +23,8 @@ public class ChatSession {
 
     private List<ChatMessage> messages = new ArrayList<>();
 
+    private String conversationSummary;  // stores compressed old context
+
     private Instant createdAt;
     private Instant updatedAt;
 }
