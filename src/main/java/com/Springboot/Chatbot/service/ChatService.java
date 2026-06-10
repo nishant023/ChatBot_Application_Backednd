@@ -18,4 +18,8 @@ public interface ChatService {
     List<SessionSummary> getUserSessions(String userId);
 
     SessionDetailResponse getSession(String sessionId, String userId);
+
+    void deleteSession(String sessionId, String userId);
+
+    SessionSummary renameSession(String sessionId, String userId, String newTitle);
 }

@@ -83,4 +83,22 @@ public class ChatController {
                         )
                 );
     }
+
+    @DeleteMapping("/{sessionId}")
+    public ResponseEntity<Void> deleteSession(
+            @PathVariable String sessionId,
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        chatService.deleteSession(sessionId, userDetails.getUsername());
+        return ResponseEntity.noContent().build();   // returns 204 No Content
+    }
+
+    @PutMapping("/{sessionId}/title")
+    public SessionSummary renameSession(
+            @PathVariable String sessionId,
+            @RequestBody RenameSessionRequest request,
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        return chatService.renameSession(sessionId, userDetails.getUsername(), request.title());
+    }
 }

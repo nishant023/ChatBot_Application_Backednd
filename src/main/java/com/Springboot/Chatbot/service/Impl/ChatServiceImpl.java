@@ -23,7 +23,6 @@ public class ChatServiceImpl implements ChatService {
     private final ChatClient chatClient;
 
 
-
     //how many recent messages to always keep in full
     private static final int RECENT_WINDOW = 20;
 
@@ -341,6 +340,43 @@ public class ChatServiceImpl implements ChatService {
 
         prompt.append("assistant:");
         return prompt.toString();
+    }
+
+    @Override
+    public void deleteSession(String sessionId, String userId) {
+        ChatSession session = chatSessionRepository.findById(sessionId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Session not found"));
+
+        if (!session.getUserId().equals(userId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
+        }
+
+        chatSessionRepository.delete(session);
+    }
+
+
+    @Override
+    public SessionSummary renameSession(String sessionId, String userId, String newTitle) {
+        ChatSession session = chatSessionRepository.findById(sessionId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Session not found"));
+
+        if (!session.getUserId().equals(userId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
+        }
+
+        if (newTitle == null || newTitle.isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Title cannot be empty");
+        }
+
+        String trimmedTitle = newTitle.trim().length() > 50
+                ? newTitle.trim().substring(0, 50) + "..."
+                : newTitle.trim();
+
+        session.setTitle(trimmedTitle);
+        session.setUpdatedAt(Instant.now());
+        chatSessionRepository.save(session);
+
+        return new SessionSummary(session.getId(), session.getTitle(), session.getUpdatedAt().toString());
     }
 
 
