@@ -5,7 +5,7 @@ spring:
     include: local
   data:
     mongodb:
-      uri: mongodb://localhost:27017/chatbot_db
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/chatbot_db}
   ai:
     google:
       genai:
